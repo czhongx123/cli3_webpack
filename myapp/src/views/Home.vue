@@ -8,6 +8,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
+import { timeStamp2String } from "@/assets/js/tool"
 import homeapi from "@/api/home"
 
 export default {
@@ -21,7 +22,9 @@ export default {
     }
   },
   mounted(){
+   
     console.log(homeapi)
+    console.log(timeStamp2String(new Date().getTime()),'tool')
   },
   methods:{
 
