@@ -1,6 +1,7 @@
 
 
-/dist为打包文件目录
-/assets---放置静态文件，例如：图片，js，svg的js等等啊，这个目录下的文件在生产环境下会被webpack copy
-/src目录下新建api文件夹，用于存放api接口---分模块存放，组件内分模块引用，直接用export 导出对象
-/assets/js目录下新建tool.js.函数工具集---每一个函数用export 导出,在页面用import{ ## } 引入
+/dist为打包文件目录;
+/assets---放置静态文件，例如：图片，js，svg的js等等啊，这个目录下的文件在生产环境下会被webpack copy;
+/src目录下新建api文件夹，用于存放api接口---分模块存放，组件内分模块引用，直接用export 导出对象;
+/assets/js目录下新建tool.js.函数工具集---每一个函数用export 导出,在页面用import{ ## } 引入;
+引入iview , jquery

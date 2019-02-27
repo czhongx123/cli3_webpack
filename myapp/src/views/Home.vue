@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="../assets/logo.png"/>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -8,26 +8,25 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
-import { timeStamp2String } from "@/assets/js/tool"
-import homeapi from "@/api/home"
+import { getDiffDate } from "@/assets/js/tool";
+import homeapi from "@/api/home";
+import $ from "jquery";
 
 export default {
   name: "home",
   components: {
     HelloWorld
   },
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-  mounted(){
-   
-    console.log(homeapi)
-    console.log(timeStamp2String(new Date().getTime()),'tool')
+  mounted() {
+    console.log(homeapi);
+    console.log(getDiffDate("2019-02-04", "2019-03-04"), "tool");
+    console.log($('.home img').attr('src'))
   },
-  methods:{
-
+  methods: {
+    aa() {}
   }
 };
 </script>
