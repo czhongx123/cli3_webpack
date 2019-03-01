@@ -6,4 +6,11 @@
 /assets/js目录下新建tool.js.函数工具集---每一个函数用export 导出,在页面用import{ ## } 引入;
 引入iview , jquery
 引入qs（ 用来解决vue中post请求以 a=a&b=b 的格式）
+安装vue-meta-info 命令： npm install vue-meta-info --save    (优化SEO)
+引入vue-meta-info:
 
+import Vue from 'vue'
+import MetaInfo from 'vue-meta-info'
+Vue.use(MetaInfo)
+
+在app.vue中，使用metaInfo进行渲染

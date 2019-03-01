@@ -7,6 +7,23 @@
     <router-view />
   </div>
 </template>
+<script>
+import moduleConfig from "@root/package.json";
+export default {
+  name: "app",
+  metaInfo() {
+    return {
+      title: this.$route.meta.title
+    };
+  },
+  beforeCreate() {
+    //启动工程后自动导航到模块首页
+    // if (this.$route.path === "/") {
+    //   this.$route.push(`${moduleConfig.name}`);
+    // }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {

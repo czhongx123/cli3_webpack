@@ -4,27 +4,22 @@
   </div>
 </template>
 <script>
-import loginapi from "@/api/login"
+import loginapi from "@/api/login";
 
 export default {
   name: "Login",
   props: {
     msg: String
   },
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-  mounted(){
-    console.log(loginapi)
+  mounted() {
+    console.log(loginapi);
   },
-  methods:{
-
-  }
+  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
-
 </style>

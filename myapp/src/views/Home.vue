@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   mounted() {
     console.log(homeapi);
     console.log(getDiffDate("2019-02-04", "2019-03-04"), "tool");
-    console.log($('.home img').attr('src'))
+    console.log($(".home img").attr("src"));
   },
   methods: {
     aa() {}
