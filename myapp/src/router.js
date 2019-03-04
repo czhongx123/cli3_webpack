@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 // const Home = () => import("./views/Home.vue");//懒加载
+const Item1 = () => import("@/page/item1.vue");
+const Item2 = () => import("@/page/item2.vue");
 
 Vue.use(Router);
 
@@ -10,12 +12,30 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "home",
       meta: {
         title: "首页"
       },
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: "/item1",
+          name: "item1",
+          meta: {
+            title: "item1"
+          },
+          component: Item1
+        },
+        {
+          path: "/item2",
+          name: "item2",
+          meta: {
+            title: "item2"
+          },
+          component: Item2
+        }
+      ]
     },
     {
       path: "/login",
@@ -29,6 +49,10 @@ export default new Router({
       //此处为路由懒加载
       component: () =>
         import(/* webpackChunkName: "login" */ "./views/Login.vue")
+    },
+    {
+      path: "/",
+      redirect: "/login"
     }
   ]
 });

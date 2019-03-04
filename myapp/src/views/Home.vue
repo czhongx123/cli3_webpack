@@ -1,13 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Menu />
+    <div id="content">
+      <Header />
+      <Nav />
+      <div class="layout-main">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Nav from "@/components/Nav.vue";
+import Menu from "@/components/Menu.vue";
+import Header from "@/components/Header.vue";
+
 import { getDiffDate } from "@/assets/js/tool";
 import homeapi from "@/api/home";
 import $ from "jquery";
@@ -15,29 +24,59 @@ import $ from "jquery";
 export default {
   name: "home",
   components: {
-    HelloWorld
+    Nav,
+    Menu,
+    Header
   },
   data() {
     return {
-      timer:null
+      timer: null
     };
   },
   mounted() {
     console.log(homeapi);
     console.log(getDiffDate("2019-02-04", "2019-03-04"), "tool");
     console.log($(".home img").attr("src"));
-    let i=0;
-    this.timer=setInterval(()=>{
-      i++;
-      console.log(i)
-    },1000)
+    // let i=0;
+    // this.timer=setInterval(()=>{
+    //   i++;
+    //   console.log(i)
+    // },1000)
   },
   methods: {
     aa() {}
   },
-  beforeDestroy(){
-    clearInterval(this.timer);        
+  beforeDestroy() {
+    clearInterval(this.timer);
     this.timer = null;
   }
 };
 </script>
+<style scoped lang="scss">
+.home {
+  background: #fff;
+  display: flex;
+  .layout-menu {
+    width: 200px;
+    background: #eee;
+  }
+  #content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    #header {
+      height: 60px;
+      border-bottom: 1px solid #cecece;
+      box-sizing: border-box;
+    }
+    #nav {
+      height: 30px;
+      border-bottom: 1px solid #cecece;
+      box-sizing: border-box;
+    }
+    .layout-main {
+      flex: 1;
+    }
+  }
+}
+</style>
