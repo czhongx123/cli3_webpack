@@ -14,3 +14,7 @@ import MetaInfo from 'vue-meta-info'
 Vue.use(MetaInfo)
 
 在app.vue中，使用metaInfo进行渲染
+
+.map文件为打包后生成的文件，目的是判断代码在哪一行运行时报错，若去掉的话，在vue.config.js文件中进行配置
+NODE_ENV环境变量，添加环境变量的配置文件.env.development/.env.production/.env.test ;
+其他别的文件可根据process.env.NODE_ENV的值的不同（是否为production）进行特殊配置
