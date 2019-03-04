@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+// const Home = () => import("./views/Home.vue");//懒加载
 
 Vue.use(Router);
 
