@@ -58,7 +58,15 @@ export default {
   display: flex;
   .layout-menu {
     width: 200px;
-    background: #eee;
+    transition: width 0.3s;
+    background: #515a6d;
+    position: relative;
+    z-index: 99999;
+    height: 100%;
+    
+  }
+  .mini {
+    width: 90px;
   }
   #content {
     flex: 1;
