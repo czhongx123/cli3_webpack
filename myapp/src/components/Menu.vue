@@ -19,7 +19,6 @@
     </ul>
     <div
       class="layout-logo"
-      :class="{mini: miniAside}"
     >
       toubu
       <div
@@ -29,7 +28,7 @@
         <Icon type="md-menu" />
       </div>
     </div>
-    <div class="menu-content">
+    <div class="menu-content" :class="{mini: miniAside}">
       <ul
         v-if="miniAside"
         class="miniMenu"
@@ -41,7 +40,7 @@
           @mouseenter="miniMenuEnter(item,index)"
           @mouseleave="closeMiniSubMenu"
         >
-        <Icon :type="item.icon" class="menu-icon" />
+        <Icon :type="item.icon" class="menu-icon" :class="{mini: miniAside}" />
         </li>
       </ul>
       <i-menu
@@ -154,12 +153,14 @@ export default {
 <style scoped lang="scss">
 .miniMenu-subMenu {
       position: absolute;
+      transition: width .3s;
       z-index: 99;
       left: 90px;
       background: #515a6d;
       li {
         width: 150px;
         height: 40px;
+        transition: width .3s;
         text-align: center;
         line-height: 40px;
         font-size: 14px;
@@ -175,6 +176,7 @@ export default {
   height: 60px;
   position: relative;
   background: #515a6d;
+  transition: width .3s;
   .menuSwitch {
     position: absolute;
     height: 60px;
@@ -189,14 +191,17 @@ export default {
 .menu-content {
   width: 200px;
   height: 100%;
+  transition: width .3s;
   overflow: auto;
   .miniMenu {
     width: 90px;
+    transition: width .3s;
     li {
       width: 100%;
       height: 70px;
       text-align: center;
       position: relative;
+      transition: width .3s;
       .menu-icon {
         line-height: 70px;
         font-size: 24px;
@@ -205,4 +210,8 @@ export default {
     }
   }
 }
+.mini {
+    width: 90px;
+    transition: width .3s;
+  }
 </style>

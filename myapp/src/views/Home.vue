@@ -67,6 +67,7 @@ export default {
   }
   .mini {
     width: 90px;
+    transition: width .3s;
   }
   #content {
     flex: 1;
