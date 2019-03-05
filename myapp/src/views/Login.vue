@@ -1,43 +1,63 @@
 <template>
-  <div class="login">
-    <Form
-      ref="formInline"
-      :model="formInline"
-      :rules="ruleInline"
-      inline
+  <section class="login-container">
+    <div
+      class="bg-wrap"
+      :style="{backgroundImage:`url(${login_img})`}"
     >
-      <FormItem prop="user">
-        <Input
-          type="text"
-          v-model="formInline.user"
-          placeholder="Username"
+      <div class="card-wrap">
+        <Card
+          style="width:350px"
+          :dis-hover="true"
         >
-        <Icon
-          type="ios-person-outline"
-          slot="prepend"
-        ></Icon>
-        </Input>
-      </FormItem>
-      <FormItem prop="password">
-        <Input
-          type="password"
-          v-model="formInline.password"
-          placeholder="Password"
-        >
-        <Icon
-          type="ios-lock-outline"
-          slot="prepend"
-        ></Icon>
-        </Input>
-      </FormItem>
-      <FormItem>
-        <Button
-          type="primary"
-          @click="handleSubmit('formInline')"
-        >Signin</Button>
-      </FormItem>
-    </Form>
-  </div>
+          <p slot="title">
+            <Icon type="log-in"></Icon>
+            欢迎登录
+          </p>
+          <Form
+            ref="userForm"
+            :model="userForm"
+            :rules="ruleCustom"
+          >
+            <FormItem prop="username">
+              <Input
+                v-model.trim="userForm.username"
+                placeholder="请输入"
+                size="large"
+              >
+              <Icon
+                type="ios-person-outline"
+                slot="prepend"
+                class="icon-cls"
+              ></Icon>
+              </Input>
+            </FormItem>
+            <FormItem prop="password">
+              <Input
+                type="password"
+                v-model.trim="userForm.password"
+                placeholder="请输入密码"
+                size="large"
+              >
+              <Icon
+                type="ios-lock-outline"
+                slot="prepend"
+                class="icon-cls"
+              ></Icon>
+              </Input>
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                @click="btn_login()"
+                long
+                :loading="login_loading"
+              >登录</Button>
+            </FormItem>
+          </Form>
+        </Card>
+      </div>
+    </div>
+  </section>
 </template>
 <script>
 import loginapi from "@/api/login";
@@ -49,31 +69,17 @@ export default {
   },
   data() {
     return {
-      formInline: {
-        user: "",
+      login_loading: false,
+      login_img: require("@/assets/img/login-bg.jpg"),
+      userForm: {
+        username: "",
         password: ""
       },
-      ruleInline: {
-        user: [
-          {
-            required: true,
-            message: "Please fill in the user name",
-            trigger: "blur"
-          }
+      ruleCustom: {
+        username: [
+          { required: true, message: "用户名不能为空", trigger: "blur" }
         ],
-        password: [
-          {
-            required: true,
-            message: "Please fill in the password.",
-            trigger: "blur"
-          },
-          {
-            type: "string",
-            min: 6,
-            message: "The password length cannot be less than 6 bits",
-            trigger: "blur"
-          }
-        ]
+        password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
       }
     };
   },
@@ -81,19 +87,47 @@ export default {
     console.log(loginapi);
   },
   methods: {
-    handleSubmit(name) {
-      this.$refs[name].validate(valid => {
-        if (valid) {
-          this.$Message.success("Success!");
-          this.$router.push({name:"home"})
-        } else {
-          this.$Message.error("Fail!");
-        }
-      });
+    btn_login() {
+      this.$router.push("/");
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
+.login-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100%);
+    .bg-wrap{
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    .card-wrap{
+        position: absolute;
+        right:100px;
+        left:0;
+        top:0;
+        bottom:0;
+        margin:auto;
+        .ivu-card{
+          position: absolute;
+          height: 250px;
+          top:0;
+          bottom: 0;
+          right: 0;
+          margin: auto;
+        }
+    }
+    .icon-cls{
+        font-weight:bold;
+        width:20px;
+        font-size:18px;
+    }
+}
 </style>

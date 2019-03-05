@@ -1045,6 +1045,9 @@ export default {
           color: #fff;
           font-size: 16px;
         }
+        .ivu-btn-text:hover {
+          background-color: rgba(255, 255, 255, 0.2) !important;
+        }
       }
     }
   }
