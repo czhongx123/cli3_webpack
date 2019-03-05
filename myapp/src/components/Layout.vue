@@ -3,9 +3,7 @@
 /* .ivu-btn-text:hover {
   background-color: rgba(255, 255, 255, 0.2) !important;
 }
-.ivu-layout.ivu-layout-has-sider {
-  height: 100%;
-}
+
 .ivu-layout-sider {
   background: #fff;
   transition: none;
@@ -14,10 +12,7 @@
   height: 60px;
   line-height: 60px;
 }
-.ivu-menu {
-  height: calc(100% - 60px);
-  overflow-y: auto;
-}
+
 .ivu-menu-item {
   white-space: nowrap;
 }
@@ -759,6 +754,8 @@ export default {
     });
   },
   // ------------------------------  菜单操作结束  --------------------------------
+  mounted(){
+  },
   methods: {
     /*tags 滚动事件 */
     handlescroll(e) {
@@ -901,6 +898,9 @@ export default {
     position: relative;
     overflow: hidden;
     height: 100%;
+    .ivu-layout.ivu-layout-has-sider {
+      height: 100%;
+    }
     .sidebar {
       background: #fff;
       .dropdown-wrap {
@@ -960,6 +960,10 @@ export default {
           }
         }
       }
+      .ivu-menu {
+        height: calc(100% - 60px);
+        overflow-y: auto;
+      }
 
       .menu-item {
         position: absolute;
@@ -1001,6 +1005,21 @@ export default {
         text-align: left;
       }
     } 
+    /*滚动条样式*/
+        .menu-item::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+        }
+        .menu-item::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.2);
+        }
+        .menu-item::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 0;
+            background: rgba(0,0,0,0.1);
+        }
 
     }
 
