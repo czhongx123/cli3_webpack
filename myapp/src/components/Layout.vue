@@ -1,6 +1,6 @@
 <style lang="postcss" scoped>
 /* @import '../assets/common.pcss'; */
-.ivu-btn-text:hover {
+/* .ivu-btn-text:hover {
   background-color: rgba(255, 255, 255, 0.2) !important;
 }
 .ivu-layout.ivu-layout-has-sider {
@@ -26,7 +26,7 @@
   & .ivu-menu-submenu-title {
     white-space: nowrap;
   }
-}
+} */
 
 </style>
 <template>
@@ -912,8 +912,10 @@ export default {
         box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
           0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
         z-index: 11;
+        // transition: width 0.3s;
         .dw-content {
           height: 100%;
+          //  transition: width 0.3s;
           .dd-btn {
             width: 83px;
             margin-left: -5px;
@@ -960,40 +962,45 @@ export default {
       }
 
       .menu-item {
-    position: absolute;
-    overflow: auto;
-    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-      0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    &:after {
-      width: 0;
-    }
-    span {
-      display: inline-block;
+        position: absolute;
+        overflow: auto;
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+          0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        &:after {
+          width: 0;
+        }
+        span {
+          display: inline-block;
+          white-space: nowrap;
+          vertical-align: bottom;
+          transition: width 0.3s ease 0.3s;
+        }
+        i {
+          transform: translateX(0px);
+          transition: font-size 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+          vertical-align: middle;
+          font-size: 16px;
+        }
+      }
+      .collapsed-menu {
+        span {
+          width: 0px;
+          transition: width 0.3s ease;
+        }
+        i {
+          transform: translateX(5px);
+          transition: font-size 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+          vertical-align: middle;
+          font-size: 22px;
+        }
+      }
+      .ivu-menu-submenu {
       white-space: nowrap;
-      vertical-align: bottom;
-      transition: width 0.2s ease 0.2s;
-    }
-    i {
-      transform: translateX(0px);
-      transition: font-size 0.2s ease, transform 0.2s ease;
-      vertical-align: middle;
-      font-size: 16px;
-    }
-  }
-   .collapsed-menu {
-    span {
-      width: 0px;
-      transition: width 0.2s ease;
-    }
-    i {
-      transform: translateX(5px);
-      transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
-      vertical-align: middle;
-      font-size: 22px;
-    }
-  }
-
-
+      .ivu-menu-submenu-title {
+        white-space: nowrap;
+        text-align: left;
+      }
+    } 
 
     }
 
@@ -1113,7 +1120,7 @@ export default {
               white-space: nowrap;
               transition: left 0.3s ease;
               .ivu-tag-dot-inner {
-                transition: background 0.2s ease;
+                transition: all 0.3s;
               }
             }
           }
