@@ -16,7 +16,7 @@
           :name="item.url"
           :key="item.name"
           @click="changePage(item.url)"
-        >{{item.name}}
+        >{{item.title}}
         </li>
       </ul>
       <div class="layout-logo">
@@ -58,18 +58,18 @@
           @on-select="changePage"
         >
           <Submenu
-            :name="item.name"
+            :name="item.title"
             v-for="item in menuList"
             :key="item.name"
           >
             <template slot="title">
               <Icon :type="item.icon" />
-              {{item.name}}
+              {{item.title}}
             </template>
             <MenuItem
-              v-for="itm in item.list"
+              v-for="itm in item.children"
               :name="itm.url"
-            >{{itm.name}}</MenuItem>
+            >{{itm.title}}</MenuItem>
           </Submenu>
         </i-menu>
       </div>
@@ -156,16 +156,80 @@ export default {
       this.initNavScroll();
     },
     getMenuList() {
-      this.menuList = [
-        {
-          name: "首页",
-          icon: "ios-analytics",
-          list: [
-            { name: "标题1", url: "/item1" },
-            { name: "标题2", url: "/item2" }
-          ]
-        }
-      ];
+      // this.menuList = [
+      //   {
+      //     name: "首页",
+      //     icon: "ios-analytics",
+      //     list: [
+      //       { name: "标题1", url: "/item1" },
+      //       { name: "标题2", url: "/item2" }
+      //     ]
+      //   }
+      // ];
+      this.menuList=[
+                {
+                    title:'首页',
+                    num:1,
+                    name:'admin',
+                    icon:'ios-home',
+                    href:'/home',
+                    closable:false,
+                    showInTags:true,
+                    showInMenus:true,
+                    choosed:true
+                },         
+                {
+                    title:'会员与代理商',
+                    name:'members-agents',
+                    icon:'ios-people',
+                    children:[
+                        {
+                            title:'会员管理',
+                            name:'memberManage',
+                            href:'/home',
+                            closable:true,
+                            showInTags:false,
+                            showInMenus:true,
+                            choosed:false
+                        },
+                        {
+                            title:'会员等级管理',
+                            name:'memberLevels',
+                            href:'/home',
+                            closable:true,
+                            showInTags:false,
+                            showInMenus:true,
+                            choosed:false
+                        },
+                        {
+                            title:'会员汇入',
+                            name:'memberRemit',
+                            href:'/home',
+                            closable:true,
+                            showInTags:false,
+                            showInMenus:true,
+                            choosed:false
+                        },
+                        {
+                            title:'代理商管理',
+                            name:'agentManage',
+                            href:'/home',
+                            closable:true,
+                            showInTags:false,
+                            showInMenus:true,
+                            choosed:false
+                        },
+                        {
+                            title:'代理商申请审核',
+                            name:'agent-audit',
+                            href:'/home',
+                            closable:true,
+                            showInTags:false,
+                            showInMenus:true,
+                            choosed:false
+                        }
+                    ]
+                }]
     },
     miniSubMenuEnter: function() {
       clearTimeout(this.closeMiniSubMenuTimer);
@@ -225,6 +289,7 @@ export default {
       }
     },
     clickTag(tab){
+      console.log(tab)
       // this.navList.forEach(_tag=>{
       //           if(_tag.name == tag.name){
       //               _tag.choosed=true;
@@ -244,32 +309,26 @@ export default {
       //       //点击tab跳转
       //       this.$router.push(`${tag.href}`);
     },
-    closeTag(){
+    closeTag(event, name){
       // 判断该标签是否是选中状态
             // 如果是那么就要设置标签数组中最后一个标签成选中状态
             // 如果否那么就直接删除就好
             let is_choosed = false;
-            this.menus.forEach((menu)=>{
-                if(menu.name == name){
-                    is_choosed = menu.choosed;
-                    menu.showInTags = false;
-                }else if(menu.children){
-                    menu.children.forEach(child=>{
-                        if(child.name == name){
-                            is_choosed = child.choosed;
-                            child.showInTags = false;
-                        }
-                    })
-                }
-            })
-            // 关闭标签并选中tags中最后一个标签高亮
-            if(is_choosed){
-                let last_tag = this.tags[this.tags.length-1];
-                last_tag.choosed = true;
-                this.$router.push(last_tag.href);
-                this.activeMenuName = last_tag.name;
-                localStorage.activeMenuName = this.activeMenuName;
-            }
+            console.log(event,name)
+            // this.menus.forEach((menu)=>{
+            //     if(menu.name == name){
+            //         is_choosed = menu.choosed;
+            //         menu.showInTags = false;
+            //     }
+            // })
+            // // 关闭标签并选中tags中最后一个标签高亮
+            // if(is_choosed){
+            //     let last_tag = this.tags[this.tags.length-1];
+            //     last_tag.choosed = true;
+            //     this.$router.push(last_tag.href);
+            //     this.activeMenuName = last_tag.name;
+            //     localStorage.activeMenuName = this.activeMenuName;
+            // }
     }
   },
   beforeDestroy() {
@@ -385,6 +444,7 @@ export default {
         left:35px;
         right:35px;
         height:100%;
+        overflow: hidden;
         .nav-inner-wrap{
           left:0;
           padding: 1px 4px 0;
