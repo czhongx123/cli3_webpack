@@ -1,9 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+
 // const Home = () => import("./views/Home.vue");//懒加载
-const Item1 = () => import("@/page/item1.vue");
-const Item2 = () => import("@/page/item2.vue");
 
 Vue.use(Router);
 
@@ -12,28 +10,28 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/home",
+      path: "/",
       name: "home",
       meta: {
         title: "首页"
       },
-      component: Home,
+      component: () => import("@/components/Layout"),
       children: [
         {
-          path: "/item1",
-          name: "item1",
+          path: "",
+          name: "home",
           meta: {
-            title: "item1"
+            title: "首页"
           },
-          component: Item1
+          component: () => import("@/views/Home")
         },
         {
-          path: "/item2",
-          name: "item2",
+          path: "/home",
+          name: "test",
           meta: {
-            title: "item2"
+            title: "测试"
           },
-          component: Item2
+          component: () => import("@/views/Home")
         }
       ]
     },
@@ -48,11 +46,7 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       //此处为路由懒加载
       component: () =>
-        import(/* webpackChunkName: "login" */ "./views/Login.vue")
-    },
-    {
-      path: "/",
-      redirect: "/login"
+        import(/* webpackChunkName: "login" */ "@/views/Login.vue")
     }
   ]
 });
