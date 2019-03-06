@@ -52,9 +52,6 @@ export default {
       } else {
         this.audio.pause()
       }
-    },
-    percent(ns){
-      console.log(ns)
     }
   },
   created() {
@@ -75,6 +72,7 @@ export default {
       }
       // 监听播放结束
       this.audio.onended = () => {
+        this.percent=100;
         this.status = false
         clearInterval(this.progressTimer)
       }
@@ -100,7 +98,7 @@ export default {
     onProgress(cb) {
       this.progressTimer = setInterval(() => {
         cb(this.audio.currentTime)
-      }, 1000)
+      },100)
     },
     clickProgress(e) {
       if (
@@ -109,7 +107,6 @@ export default {
       ) {
         if (this.status) {
           let percent = (e.offsetX / this.progressDuration) * 100
-          console.log(percent)
           this.audio.currentTime = (percent / 100) * this.duration
           this.percent = percent
         }
@@ -148,6 +145,7 @@ export default {
      background: #fff;
      .ivu-icon{
        font-size: 15px;
+       cursor: pointer;
      }
      .vision{
        display: flex;
