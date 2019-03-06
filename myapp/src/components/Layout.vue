@@ -38,27 +38,15 @@
           v-model.trim="isCollapsed"
         >
           <div class="logo">
-            <div
-              class="xfind-line"
-              v-if="!isCollapsed"
-            >
+            <div class="xfind-line" v-if="!isCollapsed">
               <div class="line-h"></div>
             </div>
-            <div
-              v-if="!isCollapsed"
-              class="logo-saiqu"
-            >
-              <Avatar
-                icon="ios-person"
-                size="large"
-              />
-              <span class="user-name">Admin</span>
+            <div v-if="!isCollapsed" class="logo-saiqu">
+              <img :src="logo_img" style="width:58px"/>
+              <span class="user-name">大疆创新</span>
             </div>
-            <Avatar
-              icon="ios-person"
-              size="large"
-              v-else
-            />
+             <img :src="logo_img" style="width:58px" v-else />
+            <!-- <Avatar icon="ios-person" size="large" /> -->
           </div>
           <Menu
             ref="side_menu"
@@ -204,25 +192,23 @@
                 <span class="header-title">iView后台管理系统</span>
               </div>
               <div class="header-right">
-                <!-- <Button type="text" icon="person" size="large">个人中心</Button>
-                            <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button> -->
-                <!-- <Dropdown>
-                                <a href="javascript:void(0)">
-                                    下拉菜单
-                                    <Icon type="ios-arrow-down"></Icon>
-                                </a>
-                                <DropdownMenu slot="list">
-                                    <DropdownItem>驴打滚</DropdownItem>
-                                    <DropdownItem>炸酱面</DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown> -->
-                <Button
+                <Poptip trigger="hover" transfer placement="bottom-end" >
+                    <div slot="title">用户：船长</div>
+                    <div slot="content">
+                        <div class="textBtn" style="cursor:pointer" @click="showChangePassword = true">修改密码</div>
+                        <div class="textBtn" style="cursor:pointer" @click="quit">退出登录</div>
+                    </div>
+                    <div class="avator-img">
+                      <img class="avatar" :src="avatar_img"/> 
+                    </div>
+                </Poptip>
+                <!-- <Button
                   type="text"
                   icon="md-exit"
                   class="btn-blue"
                   size="large"
                   @click="quit"
-                >退出系统</Button>
+                >退出系统</Button> -->
               </div>
             </div>
           </Header>
@@ -303,6 +289,8 @@ export default {
   data() {
     return {
       isCollapsed: false,
+      showChangePassword:false,
+      avatar_img:require("@/assets/img/avatar.png"),
       // ------------------------------  菜单操作开始  --------------------------------
       title: "首页",
       activeMenuName: "admin",
@@ -313,6 +301,7 @@ export default {
       contextMenuLeft: 0,
       contextMenuTop: 0,
       visible: false,
+      logo_img: require("@/assets/img/logo.jpg"),
       menus: [
         {
           title: "首页",
@@ -945,7 +934,7 @@ export default {
         cursor: pointer;
         border-bottom: 1px solid #363e4f;
         position: relative;
-        padding-left: 20px;
+        padding-left: 10px;
         background: #0d58ab;
         .logo-saiqu {
           display: flex;
@@ -968,6 +957,7 @@ export default {
       .menu-item {
         position: absolute;
         overflow: auto;
+        text-align: left;
         box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
           0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
         &:after {
@@ -1060,6 +1050,16 @@ export default {
       }
       .header-right {
         margin-right: 20px;
+        height: 40px;
+        width: 40px;
+       .avator-img{
+         height: 40px;
+       }
+        .avatar{
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+        }
         .btn-blue {
           color: #fff;
           font-size: 16px;
