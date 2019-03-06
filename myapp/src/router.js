@@ -18,7 +18,7 @@ export default new Router({
       component: () => import("@/components/Layout"),
       children: [
         {
-          path: "",
+          path: "/home",
           name: "home",
           meta: {
             title: "首页"
@@ -26,12 +26,20 @@ export default new Router({
           component: () => import("@/views/Home")
         },
         {
-          path: "/home",
-          name: "test",
+          path: "/about",
+          name: "about",
           meta: {
-            title: "测试"
+            title: "会员管理"
           },
-          component: () => import("@/views/Home")
+          component: () => import("@/page/About")
+        },
+        {
+          path: "/level",
+          name: "level",
+          meta: {
+            title: "会员等级管理"
+          },
+          component: () => import("@/page/Level")
         }
       ]
     },

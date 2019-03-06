@@ -22,7 +22,6 @@
     white-space: nowrap;
   }
 } */
-
 </style>
 <template>
   <section class="admin-layout-container">
@@ -38,14 +37,27 @@
           v-model.trim="isCollapsed"
         >
           <div class="logo">
-            <div class="xfind-line" v-if="!isCollapsed">
+            <div
+              class="xfind-line"
+              v-if="!isCollapsed"
+            >
               <div class="line-h"></div>
             </div>
-            <div v-if="!isCollapsed" class="logo-saiqu">
-              <img :src="logo_img" style="width:58px"/>
+            <div
+              v-if="!isCollapsed"
+              class="logo-saiqu"
+            >
+              <img
+                :src="logo_img"
+                style="width:58px"
+              />
               <span class="user-name">大疆创新</span>
             </div>
-             <img :src="logo_img" style="width:58px" v-else />
+            <img
+              :src="logo_img"
+              style="width:58px"
+              v-else
+            />
             <!-- <Avatar icon="ios-person" size="large" /> -->
           </div>
           <Menu
@@ -192,15 +204,30 @@
                 <span class="header-title">iView后台管理系统</span>
               </div>
               <div class="header-right">
-                <Poptip trigger="hover" transfer placement="bottom-end" >
-                    <div slot="title">用户：船长</div>
-                    <div slot="content">
-                        <div class="textBtn" style="cursor:pointer" @click="showChangePassword = true">修改密码</div>
-                        <div class="textBtn" style="cursor:pointer" @click="quit">退出登录</div>
-                    </div>
-                    <div class="avator-img">
-                      <img class="avatar" :src="avatar_img"/> 
-                    </div>
+                <Poptip
+                  trigger="hover"
+                  transfer
+                  placement="bottom-end"
+                >
+                  <div slot="title">用户：船长</div>
+                  <div slot="content">
+                    <div
+                      class="textBtn"
+                      style="cursor:pointer"
+                      @click="showChangePassword = true"
+                    >修改密码</div>
+                    <div
+                      class="textBtn"
+                      style="cursor:pointer"
+                      @click="quit"
+                    >退出登录</div>
+                  </div>
+                  <div class="avator-img">
+                    <img
+                      class="avatar"
+                      :src="avatar_img"
+                    />
+                  </div>
                 </Poptip>
                 <!-- <Button
                   type="text"
@@ -273,9 +300,40 @@
                                 <Circle2 />
                             </Spin> -->
                 <!--保存组件状态到内存，避免重新渲染-->
-                <keep-alive>
-                  <router-view />
-                </keep-alive>
+                <!-- <keep-alive> -->
+                <router-view />
+                <!-- </keep-alive> -->
+
+                <!-- 修改密码 -->
+                <Modal
+                  v-model="showChangePassword"
+                  title="修改密码"
+                  @on-ok="changePasswordOk"
+                >
+                  <Form
+                    :model="changePassword"
+                    :label-width="80"
+                  >
+                    <FormItem label="原密码">
+                      <Input
+                        v-model="changePassword.password"
+                        placeholder="原密码"
+                      ></Input>
+                    </FormItem>
+                    <FormItem label="新密码">
+                      <Input
+                        v-model="changePassword.newPassword"
+                        placeholder="新密码"
+                      ></Input>
+                    </FormItem>
+                    <FormItem label="确认密码">
+                      <Input
+                        v-model="changePassword.confirmPassword"
+                        placeholder="确认密码"
+                      ></Input>
+                    </FormItem>
+                  </Form>
+                </Modal>
               </Content>
             </Layout>
           </Content>
@@ -289,8 +347,13 @@ export default {
   data() {
     return {
       isCollapsed: false,
-      showChangePassword:false,
-      avatar_img:require("@/assets/img/avatar.png"),
+      showChangePassword: false,
+      changePassword:{
+        password:"",
+        newPassword:"",
+        confirmPassword:""
+      },
+      avatar_img: require("@/assets/img/avatar.png"),
       // ------------------------------  菜单操作开始  --------------------------------
       title: "首页",
       activeMenuName: "admin",
@@ -321,8 +384,8 @@ export default {
           children: [
             {
               title: "会员管理",
-              name: "memberManage",
-              href: "/home",
+              name: "about",
+              href: "/about",
               closable: true,
               showInTags: false,
               showInMenus: true,
@@ -330,8 +393,8 @@ export default {
             },
             {
               title: "会员等级管理",
-              name: "memberLevels",
-              href: "/home",
+              name: "level",
+              href: "/level",
               closable: true,
               showInTags: false,
               showInMenus: true,
@@ -743,9 +806,12 @@ export default {
     });
   },
   // ------------------------------  菜单操作结束  --------------------------------
-  mounted(){
-  },
+  mounted() {},
   methods: {
+    changePasswordOk() {
+      this.showChangePassword = false;
+      this.$Message.success("修改成功");
+    },
     /*tags 滚动事件 */
     handlescroll(e) {
       var type = e.type;
@@ -989,194 +1055,181 @@ export default {
         }
       }
       .ivu-menu-submenu {
-      white-space: nowrap;
-      .ivu-menu-submenu-title {
         white-space: nowrap;
-        text-align: left;
+        .ivu-menu-submenu-title {
+          white-space: nowrap;
+          text-align: left;
+        }
       }
-    } 
-    /*滚动条样式*/
-        .menu-item::-webkit-scrollbar {/*滚动条整体样式*/
-            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
-            height: 4px;
-        }
-        .menu-item::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-            border-radius: 5px;
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            background: rgba(0,0,0,0.2);
-        }
-        .menu-item::-webkit-scrollbar-track {/*滚动条里面轨道*/
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            border-radius: 0;
-            background: rgba(0,0,0,0.1);
-        }
-
+      /*滚动条样式*/
+      .menu-item::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+        height: 4px;
+      }
+      .menu-item::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .menu-item::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
 
-
-
-  .layout-header-bar {
-    background: #fff;
-    padding: 0;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    z-index: 20;
-    width: 100%;
-    .header-wapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .layout-header-bar {
+      background: #fff;
+      padding: 0;
       position: relative;
-      z-index: 1;
-      box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);
-      background: #0e64c3;
-      color: #fff;
-      .header-left {
+      display: flex;
+      flex-direction: column;
+      z-index: 20;
+      width: 100%;
+      .header-wapper {
         display: flex;
         align-items: center;
-        .menu-icon {
-          cursor: pointer;
-          transition: all 0.3s;
-          margin: 0 20px 0;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);
+        background: #0e64c3;
+        color: #fff;
+        .header-left {
+          display: flex;
+          align-items: center;
+          .menu-icon {
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 20px 0;
+          }
+          .rotate-icon {
+            transform: rotate(-90deg);
+          }
+          .header-title {
+            font-size: 18px;
+            font-weight: bold;
+          }
         }
-        .rotate-icon {
-          transform: rotate(-90deg);
-        }
-        .header-title {
-          font-size: 18px;
-          font-weight: bold;
-        }
-      }
-      .header-right {
-        margin-right: 20px;
-        height: 40px;
-        width: 40px;
-       .avator-img{
-         height: 40px;
-       }
-        .avatar{
+        .header-right {
+          margin-right: 20px;
           height: 40px;
           width: 40px;
-          border-radius: 50%;
-        }
-        .btn-blue {
-          color: #fff;
-          font-size: 16px;
-        }
-        .ivu-btn-text:hover {
-          background-color: rgba(255, 255, 255, 0.2) !important;
-        }
-      }
-    }
-  }
-
-
-
-
-
-  .main-content {
-    width: 100%;
-    height: calc(100% - 60px);
-    position: relative;
-    overflow: auto;
-    .main-layout-con {
-      height: 100%;
-      overflow: hidden;
-      .content-wrapper {
-        overflow: auto;
-        padding: 10px;
-        position: relative;
-        .spinCls {
-          width: 60px !important;
-          height: 60px !important;
-          &::after {
-            background: linear-gradient(#0d58ab, #0256ac);
+          .avator-img {
+            height: 40px;
+          }
+          .avatar {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+          }
+          .btn-blue {
+            color: #fff;
+            font-size: 16px;
+          }
+          .ivu-btn-text:hover {
+            background-color: rgba(255, 255, 255, 0.2) !important;
           }
         }
       }
-      .tags-nav-wapper {
-        background: #f0f0f0;
-        height: 40px;
-        padding: 0;
-        .tags-nav {
-          height: 100%;
-          width: 100%;
+    }
+
+    .main-content {
+      width: 100%;
+      height: calc(100% - 60px);
+      position: relative;
+      overflow: auto;
+      .main-layout-con {
+        height: 100%;
+        overflow: hidden;
+        .content-wrapper {
+          overflow: auto;
+          padding: 10px;
           position: relative;
-          border-top: 1px solid #f0f0f0;
-          border-bottom: 1px solid #f0f0f0;
-          .btn-con {
-            position: absolute;
-            top: 0px;
-            height: 100%;
-            background: #fff;
-            padding-top: 3px;
-            z-index: 10;
-          }
-          button {
-            padding: 6px 4px;
-            line-height: 14px;
-            text-align: center;
-          }
-          .left-btn {
-            left: 0px;
-            border-right: 1px solid #f0f0f0;
-          }
-          .right-btn {
-            right: 0px;
-            border-left: 1px solid #f0f0f0;
-          }
-          .scroll-outer {
-            position: absolute;
-            left: 28px;
-            right: 28px;
-            top: 0;
-            bottom: 0;
-            box-shadow: 0px 0 3px 2px rgba(100, 100, 100, 0.1) inset;
-            .scroll-body {
-              height: calc(100% - 1px);
-              display: inline-block;
-              padding: 1px 4px 0;
-              position: absolute;
-              overflow: visible;
-              white-space: nowrap;
-              transition: left 0.3s ease;
-              .ivu-tag-dot-inner {
-                transition: all 0.3s;
-              }
+          .spinCls {
+            width: 60px !important;
+            height: 60px !important;
+            &::after {
+              background: linear-gradient(#0d58ab, #0256ac);
             }
           }
-          .contextmenu {
-            position: absolute;
-            margin: 0;
-            padding: 5px 0;
-            background: #fff;
-            z-index: 100;
-            list-style-type: none;
-            border-radius: 4px;
-            box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
-            li {
+        }
+        .tags-nav-wapper {
+          background: #f0f0f0;
+          height: 40px;
+          padding: 0;
+          .tags-nav {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            .btn-con {
+              position: absolute;
+              top: 0px;
+              height: 100%;
+              background: #fff;
+              padding-top: 3px;
+              z-index: 10;
+            }
+            button {
+              padding: 6px 4px;
+              line-height: 14px;
+              text-align: center;
+            }
+            .left-btn {
+              left: 0px;
+              border-right: 1px solid #f0f0f0;
+            }
+            .right-btn {
+              right: 0px;
+              border-left: 1px solid #f0f0f0;
+            }
+            .scroll-outer {
+              position: absolute;
+              left: 28px;
+              right: 28px;
+              top: 0;
+              bottom: 0;
+              box-shadow: 0px 0 3px 2px rgba(100, 100, 100, 0.1) inset;
+              .scroll-body {
+                height: calc(100% - 1px);
+                display: inline-block;
+                padding: 1px 4px 0;
+                position: absolute;
+                overflow: visible;
+                white-space: nowrap;
+                transition: left 0.3s ease;
+                .ivu-tag-dot-inner {
+                  transition: all 0.3s;
+                }
+              }
+            }
+            .contextmenu {
+              position: absolute;
               margin: 0;
-              padding: 5px 15px;
-              cursor: pointer;
-              &:hover {
-                background: #eee;
+              padding: 5px 0;
+              background: #fff;
+              z-index: 100;
+              list-style-type: none;
+              border-radius: 4px;
+              box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+              li {
+                margin: 0;
+                padding: 5px 15px;
+                cursor: pointer;
+                &:hover {
+                  background: #eee;
+                }
               }
             }
           }
         }
       }
     }
-  }
-
-
-
-
-
-
-
-
-
   }
 }
 </style>

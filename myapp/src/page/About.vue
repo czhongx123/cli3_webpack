@@ -1,13 +1,14 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    item2
-  </div>
+  <section class="about-container">
+    <Card>
+     会员管理
+    </Card>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "About",
   props: {
     msg: String
   }
