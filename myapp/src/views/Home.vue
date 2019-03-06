@@ -34,7 +34,7 @@ export default {
       searchForm: {
         name: ""
       },
-      audioBase:require("@/assets/audio/m2.mp3"),
+      audioBase:require("@/assets/audio/m1.mp3"),
       columns1: [
         {
           title: "Name",
