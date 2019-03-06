@@ -27,12 +27,14 @@
   </section>
 </template>
 <script>
+import AudioPlayer from '@/components/AudioPlayer'
 export default {
   data() {
     return {
       searchForm: {
         name: ""
       },
+      audioBase:require("@/assets/audio/m2.mp3"),
       columns1: [
         {
           title: "Name",
@@ -40,7 +42,14 @@ export default {
         },
         {
           title: "Age",
-          key: "age"
+          key: "age",
+          render: (h, params) => {
+            return h(AudioPlayer, {
+              props: {
+                src: this.audioBase
+              }
+            })
+          }
         },
         {
           title: "Address",
